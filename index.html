@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Star Wars: THE ULTIMATE FAN PAGE (MAXXX)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <!-- Favicon -->
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6c/Star_Wars_Logo.svg">
+  <style>
+    :root {
+      --sw-yellow: #ffe81f;
+      --sw-dark: #0b0d17;
+      --sw-blue: #1e90ff;
+      --sw-gray: #222;
+      --sw-accent: #00b3ff;
+      --sw-red: #ff5050;
+      --sw-green: #59ff59;
+      --sw-white: #eee;
+      --sw-black: #050712;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Share Tech Mono', monospace, Arial, sans-serif;
+      color: var(--sw-yellow);
+      background: var(--sw-black);
+      transition: background 0.5s, color 0.5s;
+      overflow-x: hidden;
+    }
+    /* Starfield animation */
+    #starfield {
+      position: fixed;
+      z-index: 0;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+    }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(0,0,0,0.85);
+      border-bottom: 3px solid var(--sw-yellow);
+      text-align: center;
+      padding: 2rem 0 1rem 0;
+      box-shadow: 0 0 30px #ffe81f33;
+    }
+    .starwars-logo {
+      font-family: 'Orbitron', Impact, 'Share Tech Mono', Arial, sans-serif;
+      font-size: 3.2rem;
+      letter-spacing: .2em;
+      color: var(--sw-yellow);
+      text-shadow: 0 0 25px var(--sw-yellow), 0 0 8px #fff;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      color: var(--sw-blue);
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    nav {
+      margin-bottom: 0.7rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: var(--sw-accent);
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.4em 0.7em;
+      border-radius: 6px;
+      transition: background .2s, color .2s;
+    }
+    nav a:hover {
+      background: var(--sw-yellow);
+      color: var(--sw-dark);
+    }
+    .theme-toggle {
+      background: var(--sw-yellow);
+      color: var(--sw-dark);
+      border: none;
+      border-radius: 7px;
+      font-weight: bold;
+      padding: .6em 1.1em;
+      font-size: 1rem;
+      cursor: pointer;
+      margin: 0 .5rem .5rem .5rem;
+      box-shadow: 0 0 10px var(--sw-yellow);
+      transition: background .2s, color .2s;
+    }
+    .theme-toggle:hover { background: var(--sw-accent); color: #fff; }
+    .music-btn {
+      background: var(--sw-yellow);
+      color: var(--sw-dark);
+      font-weight: bold;
+      border-radius: 7px;
+      border: none;
+      padding: .6em 1.1em;
+      font-size: 1rem;
+      box-shadow: 0 0 10px var(--sw-yellow);
+      cursor: pointer;
+      margin: 0 .5rem .5rem .5rem;
+      transition: background .2s, color .2s;
+    }
+    .music-btn:hover { background: var(--sw-accent); color: #fff; }
+    /* Opening Crawl */
+    .crawl-container {
+      perspective: 600px;
+      overflow: hidden;
+      height: 340px;
+      background: black;
+      margin: 2rem auto 2rem auto;
+      max-width: 700px;
+      border: 2px solid var(--sw-yellow);
+      box-shadow: 0 0 40px #ffe81f66;
+      position: relative;
+      z-index: 1;
+    }
+    .crawl {
+      font-size: 1.17rem;
+      font-weight: bold;
+      line-height: 1.65;
+      color: var(--sw-yellow);
+      text-align: center;
+      position: relative;
+      animation: crawl 42s linear infinite;
+      transform-origin: 50% 100%;
+      width: 80%;
+      margin: 0 auto;
+      letter-spacing: 0.02em;
+    }
+    @keyframes crawl {
+      0% { top: 310px; transform: rotateX(20deg)  translateZ(0); opacity: 1; }
+      90% { opacity: 1; }
+      100% { top: -1100px; transform: rotateX(30deg) translateZ(-400px); opacity: 0; }
+    }
+    section {
+      background: rgba(15,18,30,0.96);
+      margin: 2rem auto;
+      max-width: 1100px;
+      border-radius: 13px;
+      box-shadow: 0 0 22px #ffe81f44;
+      padding: 2rem 1.5rem;
+      border: 1px solid var(--sw-yellow);
+      scroll-margin-top: 90px;
+      position: relative;
+      z-index: 1;
+    }
+    h2 {
+      color: var(--sw-accent);
+      text-shadow: 0 0 6px var(--sw-blue);
+      border-bottom: 1px solid #444;
+      padding-bottom: .4rem;
+      margin-top: 0;
+      font-size: 2.15rem;
+    }
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .card {
+      background: #181b22;
+      border: 1.5px solid var(--sw-yellow);
+      border-radius: 9px;
+      box-shadow: 0 0 13px #ffe81f22;
+      padding: 1rem;
+      width: 210px;
+      text-align: center;
+      transition: transform .2s, box-shadow .2s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 310px;
+      position: relative;
+    }
+    .card:hover {
+      transform: scale(1.07) rotate(-2deg);
+      box-shadow: 0 0 28px #ffe81f99;
+      z-index: 2;
+    }
+    .card img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-bottom: .7rem;
+      border-radius: 50%;
+      background: #111;
+      border: 2px solid var(--sw-accent);
+      box-shadow: 0 0 10px #222;
+    }
+    /* Modals */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.85);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal {
+      background: #181b22;
+      border: 2.5px solid var(--sw-yellow);
+      border-radius: 15px;
+      color: var(--sw-yellow);
+      padding: 2rem 2rem 1.2rem 2rem;
+      width: 95vw; max-width: 390px;
+      text-align: center;
+      box-shadow: 0 0 45px var(--sw-yellow);
+      position: relative;
+    }
+    .modal-close {
+      position: absolute; right: 1.3rem; top: 1.3rem;
+      background: var(--sw-red); color: #fff;
+      border: none; border-radius: 50%; width: 2.1em; height:2.1em;
+      font-size: 1.3em; font-weight: bold; cursor:pointer;
+      box-shadow: 0 0 8px var(--sw-red);
+    }
+    /* Timeline */
+    .timeline {
+      margin: 2rem 0;
+      border-left: 3px solid var(--sw-accent);
+      padding-left: 2rem;
+      list-style: none;
+      color: var(--sw-yellow);
+    }
+    .timeline li {
+      margin-bottom: 1.7rem;
+      position: relative;
+    }
+    .timeline li:before {
+      content: '';
+      position: absolute;
+      left: -2.2rem;
+      top: .2rem;
+      width: 1.1rem;
+      height: 1.1rem;
+      background: var(--sw-yellow);
+      border-radius: 50%;
+      border: 3px solid var(--sw-accent);
+      box-shadow: 0 0 5px var(--sw-blue);
+    }
+    .trivia, .quiz, .quotes {
+      background: #0a0c15;
+      border-radius: 8px;
+      max-width: 600px;
+      margin: 1.2rem auto;
+    }
+    .trivia {
+      font-style: italic;
+      color: var(--sw-yellow);
+      border-left: 4px solid var(--sw-accent);
+      padding: 1rem;
+      font-size: 1.08rem;
+    }
+    .quiz {
+      border: 2px solid var(--sw-blue);
+      padding: 1.1rem 1.2rem;
+      color: var(--sw-yellow);
+    }
+    .quiz label { display: block; margin: .6em 0; cursor: pointer; }
+    .quiz input[type="radio"] { margin-right: 7px; }
+    .quiz-result {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: var(--sw-green);
+    }
+    .quotes {
+      border: 2px dashed var(--sw-accent);
+      font-style: italic;
+      font-size: 1.13rem;
+      padding: 1.2rem 1rem 0.7rem 1rem;
+      color: var(--sw-yellow);
+      text-align: center;
+    }
+    .quotes .character {
+      color: var(--sw-green);
+      font-weight: bold;
+      display: block;
+      margin-top: .7rem;
+      font-size: 1.02rem;
+      font-style: normal;
+    }
+    /* Responsive */
+    @media (max-width: 850px) {
+      section { padding: 1rem .5rem; }
+      .grid { flex-direction: column; align-items: center; }
+      .card { width: 90vw; min-height: 260px;}
+      .crawl-container { height: 180px; }
+      .crawl { font-size: 1rem; }
+      .quotes { font-size: 1rem; }
+    }
+    footer {
+      text-align: center;
+      color: #888;
+      font-size: 1rem;
+      padding: 2rem 0 1rem 0;
+      margin-top: 2rem;
+    }
+    a {
+      color: var(--sw-blue);
+      text-decoration: underline;
+    }
+    a:hover { color: var(--sw-yellow); }
+    /* Light side theme */
+    body.light {
+      background: #f7fbff;
+      color: #1a1a1a;
+    }
+    body.light header, body.light section, body.light .crawl-container {
+      background: #f8faff !important;
+      color: #0a0a0a;
+      border-color: var(--sw-blue) !important;
+      box-shadow: 0 0 20px #1e90ff22 !important;
+    }
+    body.light .starwars-logo { color: var(--sw-blue); text-shadow: 0 0 23px var(--sw-blue), 0 0 10px #fff; }
+    body.light .subtitle { color: var(--sw-yellow); }
+    body.light h2 { color: var(--sw-yellow); text-shadow: 0 0 7px var(--sw-yellow); border-bottom: 1px solid #bbb; }
+    body.light .card, body.light .quotes, body.light .trivia, body.light .quiz {
+      background: #fff !important; color: #111;
+      border-color: var(--sw-blue) !important;
+    }
+    body.light nav a { color: var(--sw-blue);}
+    body.light nav a:hover { background: var(--sw-accent); color: #fff;}
+    body.light .modal { background: #fff !important; color: #111; border-color: var(--sw-blue);}
+    body.light .modal-close { background: var(--sw-red);}
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+  <header>
+    <div class="starwars-logo">STAR WARS</div>
+    <div class="subtitle">THE ULTIMATE FAN PAGE <span style="font-size:1.1em;color:var(--sw-yellow);" title="Maximum Power!">MAXXX</span></div>
+    <nav>
+      <a href="#movies">Movies</a>
+      <a href="#characters">Characters</a>
+      <a href="#ships">Starships</a>
+      <a href="#planets">Planets</a>
+      <a href="#species">Species</a>
+      <a href="#timeline">Timeline</a>
+      <a href="#trivia">Trivia</a>
+      <a href="#quotes">Quotes</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#trailers">Trailers</a>
+      <a href="#resources">Links</a>
+    </nav>
+    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">Switch to Light Side</button>
+    <button class="music-btn" onclick="toggleMusic()">Play Star Wars Theme</button>
+    <audio id="sw-theme" src="https://cdn.pixabay.com/audio/2022/07/26/audio_124bfa8003.mp3"></audio>
+  </header>
+  <!-- Opening Crawl -->
+  <div class="crawl-container">
+    <div class="crawl">
+      <div style="font-size:2rem; margin-bottom:1.2rem; color:var(--sw-blue);">A long time ago in a galaxy far,<br>far away....</div>
+      <div>
+        This is the ULTIMATE Star Wars fan page.<br>
+        Explore all the movies, meet heroes and villains, fly iconic starships, and discover the secrets of the galaxy.<br>
+        Test your knowledge with a quiz, read fun facts, and relive the saga.<br>
+        <span style="color:var(--sw-accent);">May the Force be with you!</span>
+      </div>
+    </div>
+  </div>
+  <!-- Random Did You Know -->
+  <section id="didyouknow" style="background:rgba(0,0,0,0.9);text-align:center;margin-top:-2rem;">
+    <div class="trivia" id="dyk-box"></div>
+  </section>
+  <!-- MOVIES -->
+  <section id="movies">
+    <h2>Movies</h2>
+    <div class="grid">
+      <div class="card" onclick="showModal('movie1')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/8/87/StarWarsMoviePoster1977.jpg" alt="A New Hope">
+        <div><strong>Episode IV: A New Hope</strong></div>
+        <div style="font-size:.95em;color:#aaa;">1977</div>
+      </div>
+      <div class="card" onclick="showModal('movie2')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/3/3c/SW_-_Empire_Strikes_Back.jpg" alt="Empire Strikes Back">
+        <div><strong>Episode V: The Empire Strikes Back</strong></div>
+        <div style="font-size:.95em;color:#aaa;">1980</div>
+      </div>
+      <div class="card" onclick="showModal('movie3')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/b/b2/ReturnOfTheJediPoster1983.jpg" alt="Return of the Jedi">
+        <div><strong>Episode VI: Return of the Jedi</strong></div>
+        <div style="font-size:.95em;color:#aaa;">1983</div>
+      </div>
+      <div class="card" onclick="showModal('movie4')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/8/8f/Star_Wars_-_The_Phantom_Menace_%281999%29.jpg" alt="Phantom Menace">
+        <div><strong>Episode I: The Phantom Menace</strong></div>
+        <div style="font-size:.95em;color:#aaa;">1999</div>
+      </div>
+      <div class="card" onclick="showModal('movie5')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/f/f6/Attack_of_the_Clones_poster.jpg" alt="Attack of the Clones">
+        <div><strong>Episode II: Attack of the Clones</strong></div>
+        <div style="font-size:.95em;color:#aaa;">2002</div>
+      </div>
+      <div class="card" onclick="showModal('movie6')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/6/6c/Star_Wars_Episode_III_Revenge_of_the_Sith_poster.jpg" alt="Revenge of the Sith">
+        <div><strong>Episode III: Revenge of the Sith</strong></div>
+        <div style="font-size:.95em;color:#aaa;">2005</div>
+      </div>
+      <div class="card" onclick="showModal('movie7')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/7/7e/Star_Wars_The_Force_Awakens_Theatrical_Poster.jpg" alt="The Force Awakens">
+        <div><strong>Episode VII: The Force Awakens</strong></div>
+        <div style="font-size:.95em;color:#aaa;">2015</div>
+      </div>
+      <div class="card" onclick="showModal('movie8')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/7/7f/Star_Wars_The_Last_Jedi.jpg" alt="The Last Jedi">
+        <div><strong>Episode VIII: The Last Jedi</strong></div>
+        <div style="font-size:.95em;color:#aaa;">2017</div>
+      </div>
+      <div class="card" onclick="showModal('movie9')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/1/1b/Star_Wars_The_Rise_of_Skywalker_poster.jpg" alt="Rise of Skywalker">
+        <div><strong>Episode IX: The Rise of Skywalker</strong></div>
+        <div style="font-size:.95em;color:#aaa;">2019</div>
+      </div>
+      <div class="card" onclick="showModal('movie10')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/8/87/Rogue_One%2C_A_Star_Wars_Story_poster.png" alt="Rogue One">
+        <div><strong>Rogue One: A Star Wars Story</strong></div>
+        <div style="font-size:.95em;color:#aaa;">2016</div>
+      </div>
+      <div class="card" onclick="showModal('movie11')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/5/52/Solo_A_Star_Wars_Story_poster.png" alt="Solo">
+        <div><strong>Solo: A Star Wars Story</strong></div>
+        <div style="font-size:.95em;color:#aaa;">2018</div>
+      </div>
+    </div>
+  </section>
+  <!-- CHARACTERS (with modals for more info) -->
+  <section id="characters">
+    <h2>Characters</h2>
+    <div class="grid">
+      <div class="card" onclick="showModal('luke')">
+        <img src="https://static.wikia.nocookie.net/starwars/images/6/6f/Luke-rotjpromo.jpg" alt="Luke Skywalker">
+        <div><strong>Luke Skywalker</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Jedi Knight</div>
+      </div>
+      <div class="card" onclick="showModal('vader')">
+        <img src="https://static.wikia.nocookie.net/starwars/images/8/8e/Darth_Vader_Angle.png" alt="Darth Vader">
+        <div><strong>Darth Vader</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Sith Lord</div>
+      </div>
+      <div class="card" onclick="showModal('leia')">
+        <img src="https://static.wikia.nocookie.net/starwars/images/5/5e/Leia_Organa_TROS.png" alt="Leia Organa">
+        <div><strong>Leia Organa</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Rebel Leader</div>
+      </div>
+      <div class="card" onclick="showModal('han')">
+        <img src="https://static.wikia.nocookie.net/starwars/images/8/8b/HanSoloTFA.png" alt="Han Solo">
+        <div><strong>Han Solo</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Smuggler</div>
+      </div>
+      <div class="card" onclick="showModal('chewie')">
+        <img src="https://static.wikia.nocookie.net/starwars/images/6/6b/Chewbacca_TROS.png" alt="Chewbacca">
+        <div><strong>Chewbacca</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Wookiee Warrior</div>
+      </div>
+      <div class="card" onclick="showModal('yoda')">
+        <img src="https://static.wikia.nocookie.net/starwars/images/8/8d/Yoda_SWSB.png" alt="Yoda">
+        <div><strong>Yoda</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Jedi Master</div>
+      </div>
+      <div class="card" onclick="showModal('obiwan')">
+        <img src="https://static.wikia.nocookie.net/starwars/images/3/32/ObiWanHS-SWE.png" alt="Obi-Wan Kenobi">
+        <div><strong>Obi-Wan Kenobi</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Jedi Master</div>
+      </div>
+      <div class="card" onclick="showModal('palpatine')">
+        <img src="https://static.wikia.nocookie.net/starwars/images/c/c2/Palpatine-ROTS.png" alt="Palpatine">
+        <div><strong>Emperor Palpatine</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Sith Master</div>
+      </div>
+      <div class="card" onclick="showModal('r2d2')">
+        <img src="https://static.wikia.nocookie.net/starwars/images/9/9b/R2-D2_Droid.png" alt="R2-D2">
+        <div><strong>R2-D2</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Astromech Droid</div>
+      </div>
+      <div class="card" onclick="showModal('c3po')">
+        <img src="https://static.wikia.nocookie.net/starwars/images/5/5c/C-3PO_TROS.png" alt="C-3PO">
+        <div><strong>C-3PO</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Protocol Droid</div>
+      </div>
+      <div class="card" onclick="showModal('rey')">
+        <img src="https://static.wikia.nocookie.net/starwars/images/6/6a/Rey_TROS.png" alt="Rey">
+        <div><strong>Rey</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Jedi</div>
+      </div>
+      <div class="card" onclick="showModal('kylo')">
+        <img src="https://static.wikia.nocookie.net/starwars/images/7/7b/Kylo_Ren_TLJ.png" alt="Kylo Ren">
+        <div><strong>Kylo Ren</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Supreme Leader</div>
+      </div>
+      <div class="card" onclick="showModal('mando')">
+        <img src="https://static.wikia.nocookie.net/starwars/images/2/21/MandoDinDjarinS3.png" alt="Din Djarin">
+        <div><strong>Din Djarin (The Mandalorian)</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Bounty Hunter</div>
+      </div>
+      <div class="card" onclick="showModal('grogu')">
+        <img src="https://static.wikia.nocookie.net/starwars/images/9/97/Grogu-2.png" alt="Grogu">
+        <div><strong>Grogu (Baby Yoda)</strong></div>
+        <div style="font-size:.9em;color:#aaa;">The Child</div>
+      </div>
+    </div>
+  </section>
+  <!-- STARSHIPS -->
+  <section id="ships">
+    <h2>Starships & Vehicles</h2>
+    <div class="grid">
+      <div class="card" title="The fastest hunk of junk in the galaxy!">
+        <img src="https://static.wikia.nocookie.net/starwars/images/9/9b/Millennium_Falcon_TFA.png" alt="Millennium Falcon">
+        <div><strong>Millennium Falcon</strong></div>
+        <div style="font-size:.9em;color:#aaa;">YT-1300 Freighter</div>
+      </div>
+      <div class="card" title="The backbone of the Rebel fleet.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/8/8e/Xwing-SWB.png" alt="X-wing">
+        <div><strong>X-wing Starfighter</strong></div>
+        <div style="font-size:.9em;color:#aaa;">T-65B</div>
+      </div>
+      <div class="card" title="The Empire's main starfighter.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/b/b7/TIE_Fighter_BF2.png" alt="TIE Fighter">
+        <div><strong>TIE Fighter</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Imperial Starfighter</div>
+      </div>
+      <div class="card" title="A terrifying Imperial warship.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/7/72/Star_Destroyer_BF2.png" alt="Star Destroyer">
+        <div><strong>Star Destroyer</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Imperial Capital Ship</div>
+      </div>
+      <div class="card" title="Boba Fett's deadly vessel.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/7/7e/Slave_I_DICE.png" alt="Slave I">
+        <div><strong>Slave I</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Firespray-31</div>
+      </div>
+      <div class="card" title="Vader's personal command ship.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/1/1a/Executor_TEA.png" alt="Executor">
+        <div><strong>Executor</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Super Star Destroyer</div>
+      </div>
+      <div class="card" title="Empire's mighty walker.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/1/1e/AT-AT-Empire.png" alt="AT-AT">
+        <div><strong>AT-AT Walker</strong></div>
+        <div style="font-size:.9em;color:#aaa;">All Terrain Armored Transport</div>
+      </div>
+      <div class="card" title="Used for Imperial transport missions.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/5/5a/Imperialshuttle_rotj.png" alt="Imperial Shuttle">
+        <div><strong>Lambda-class Shuttle</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Imperial Shuttle</div>
+      </div>
+    </div>
+  </section>
+  <!-- PLANETS -->
+  <section id="planets">
+    <h2>Planets & Locations</h2>
+    <div class="grid">
+      <div class="card" title="Twin suns, endless sand.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/c/c3/Tatooine_TPM.png" alt="Tatooine">
+        <div><strong>Tatooine</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Desert world, home of Anakin and Luke.</div>
+      </div>
+      <div class="card" title="Not a moon!">
+        <img src="https://static.wikia.nocookie.net/starwars/images/6/6e/DeathStar1-ROTJ.png" alt="Death Star">
+        <div><strong>Death Star</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Planet-destroying battle station.</div>
+      </div>
+      <div class="card" title="The coldest Rebel base.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/5/5d/Hoth_SWCT.png" alt="Hoth">
+        <div><strong>Hoth</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Icy Rebel base, epic battle in ESB.</div>
+      </div>
+      <div class="card" title="Home of the Ewoks.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/f/f9/Endor_Forest_Moon.png" alt="Endor">
+        <div><strong>Endor</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Forest moon, Death Star II destroyed here.</div>
+      </div>
+      <div class="card" title="The city-planet.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/5/5a/CoruscantGlobeE1.png" alt="Coruscant">
+        <div><strong>Coruscant</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Galactic capital, Jedi Council's seat.</div>
+      </div>
+      <div class="card" title="Where Obi-Wan and Anakin dueled.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/6/6e/Mustafar_FC.png" alt="Mustafar">
+        <div><strong>Mustafar</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Fiery lava planet.</div>
+      </div>
+      <div class="card" title="Padmé's beautiful home.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/b/b0/Naboo_FF2.png" alt="Naboo">
+        <div><strong>Naboo</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Verdant world, home of Padmé & Palpatine.</div>
+      </div>
+      <div class="card" title="Birthplace of the clones.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/d/d7/Kamino-DB.png" alt="Kamino">
+        <div><strong>Kamino</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Stormy ocean planet.</div>
+      </div>
+    </div>
+  </section>
+  <!-- SPECIES -->
+  <section id="species">
+    <h2>Species & Droids</h2>
+    <div class="grid">
+      <div class="card" title="The most common species.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/0/09/Human_NEGAS.jpg" alt="Human">
+        <div><strong>Humans</strong></div>
+        <div style="font-size:.9em;color:#aaa;">The most common species in the galaxy.</div>
+      </div>
+      <div class="card" title="Chewbacca's people!">
+        <img src="https://static.wikia.nocookie.net/starwars/images/7/7b/Wookiee_TPM.png" alt="Wookiee">
+        <div><strong>Wookiees</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Tall, hairy warriors from Kashyyyk.</div>
+      </div>
+      <div class="card" title="Dancing Twi'leks, anyone?">
+        <img src="https://static.wikia.nocookie.net/starwars/images/8/8b/Twilek_NEGAS.jpg" alt="Twi'lek">
+        <div><strong>Twi'leks</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Colorful, elegant species with head-tails.</div>
+      </div>
+      <div class="card" title="Yoda and Grogu!">
+        <img src="https://static.wikia.nocookie.net/starwars/images/3/32/Yoda_Species_NEGAS.jpg" alt="Yoda's Species">
+        <div><strong>Yoda's Species</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Rare, mysterious, wise in the Force.</div>
+      </div>
+      <div class="card" title="Mechanical helpers and foes.">
+        <img src="https://static.wikia.nocookie.net/starwars/images/2/21/Droid_NEGAS.jpg" alt="Droids">
+        <div><strong>Droids</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Astromechs, Protocol droids, Battle droids & more.</div>
+      </div>
+      <div class="card" title="Bossk is one!">
+        <img src="https://static.wikia.nocookie.net/starwars/images/6/6c/Trandoshan_NEGAS.jpg" alt="Trandoshan">
+        <div><strong>Trandoshans</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Reptilian hunters.</div>
+      </div>
+      <div class="card" title="Jar Jar Binks!">
+        <img src="https://static.wikia.nocookie.net/starwars/images/0/0a/Gungan_NEGAS.jpg" alt="Gungan">
+        <div><strong>Gungans</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Aquatic species from Naboo.</div>
+      </div>
+      <div class="card" title="It's a trap!">
+        <img src="https://static.wikia.nocookie.net/starwars/images/0/0f/MonCalamari_NEGAS.jpg" alt="Mon Calamari">
+        <div><strong>Mon Calamari</strong></div>
+        <div style="font-size:.9em;color:#aaa;">Aquatic, shipbuilding allies of the Rebellion.</div>
+      </div>
+    </div>
+  </section>
+  <!-- TIMELINE -->
+  <section id="timeline">
+    <h2>Timeline of Events</h2>
+    <ul class="timeline">
+      <li><strong>32 BBY:</strong> The Phantom Menace – Anakin discovered by Jedi, Darth Maul defeated.</li>
+      <li><strong>22 BBY:</strong> Attack of the Clones – Clone Wars begin.</li>
+      <li><strong>19 BBY:</strong> Revenge of the Sith – Anakin becomes Darth Vader, Jedi Purge, Empire rises.</li>
+      <li><strong>0 BBY/ABY:</strong> A New Hope – Death Star destroyed, Luke joins the Rebellion.</li>
+      <li><strong>3 ABY:</strong> The Empire Strikes Back – Battle of Hoth, Vader reveals the truth to Luke.</li>
+      <li><strong>4 ABY:</strong> Return of the Jedi – Death Star II destroyed, Emperor defeated, Anakin redeemed.</li>
+      <li><strong>34 ABY:</strong> The Force Awakens – Starkiller Base destroyed, Han Solo dies.</li>
+      <li><strong>35 ABY:</strong> The Rise of Skywalker – Emperor returns, final victory for the Resistance.</li>
+    </ul>
+  </section>
+  <!-- TRIVIA -->
+  <section id="trivia">
+    <h2>Fun Trivia</h2>
+    <div class="trivia" id="trivia-box"></div>
+    <div style="text-align:center;">
+      <button onclick="showTrivia()" style="padding:0.7rem 1.2rem; border-radius:5px; background:var(--sw-blue); color:#fff; border:none; font-size:1rem; cursor:pointer; margin-top:.5rem; box-shadow:0 0 10px var(--sw-blue);">Show Another Trivia</button>
+    </div>
+  </section>
+  <!-- QUOTES -->
+  <section id="quotes">
+    <h2>Star Wars Quotes</h2>
+    <div class="quotes" id="quote-box"></div>
+    <div style="text-align:center;">
+      <button onclick="showQuote()" style="padding:0.5rem 1.2rem; border-radius:5px; background:var(--sw-yellow); color:#222; border:none; font-size:1rem; cursor:pointer; margin-top:.7rem; box-shadow:0 0 8px var(--sw-yellow);">Show Another Quote</button>
+    </div>
+  </section>
+  <!-- QUIZ -->
+  <section id="quiz">
+    <h2>Star Wars Quiz</h2>
+    <div class="quiz" id="quiz-box">
+      <form id="quiz-form" autocomplete="off">
+        <div id="quiz-question"></div>
+        <div id="quiz-options"></div>
+        <button type="submit" style="margin-top:1em;padding:0.5em 1.4em;border-radius:7px;background:var(--sw-blue);color:#fff;border:none;font-size:1.03em;cursor:pointer;box-shadow:0 0 8px var(--sw-blue);">Answer</button>
+      </form>
+      <div class="quiz-result" id="quiz-result"></div>
+    </div>
+  </section>
+  <!-- TRAILERS -->
+  <section id="trailers">
+    <h2>Official Trailers</h2>
+    <div style="display: flex; flex-wrap: wrap; gap:2rem; justify-content:center; align-items:center;">
+      <div>
+        <div style="color:#fff;font-size:1.02rem;text-align:center;">A New Hope (1977)</div>
+        <iframe width="320" height="180" src="https://www.youtube.com/embed/vZ734NWnAHA" title="A New Hope Trailer" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div>
+        <div style="color:#fff;font-size:1.02rem;text-align:center;">The Force Awakens (2015)</div>
+        <iframe width="320" height="180" src="https://www.youtube.com/embed/sGbxmsDFVnE" title="The Force Awakens Trailer" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div>
+        <div style="color:#fff;font-size:1.02rem;text-align:center;">The Rise of Skywalker (2019)</div>
+        <iframe width="320" height="180" src="https://www.youtube.com/embed/8Qn_spdM5Zg" title="Rise of Skywalker Trailer" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+  <!-- RESOURCES -->
+  <section id="resources">
+    <h2>Explore More</h2>
+    <ul style="color:var(--sw-yellow);list-style:circle;padding-left:1.3em;">
+      <li><a href="https://www.starwars.com/" target="_blank">Official Star Wars</a></li>
+      <li><a href="https://starwars.fandom.com/wiki/Main_Page" target="_blank">Wookieepedia</a> (Star Wars Wiki)</li>
+      <li><a href="https://www.disneyplus.com/franchise/star-wars" target="_blank">Watch on Disney+</a></li>
+      <li><a href="https://www.lego.com/en-us/themes/star-wars" target="_blank">LEGO Star Wars</a></li>
+      <li><a href="https://www.fanfiction.net/movie/Star-Wars/" target="_blank">Star Wars Fanfiction</a></li>
+      <li><a href="https://www.reddit.com/r/StarWars/" target="_blank">r/StarWars Subreddit</a></li>
+    </ul>
+  </section>
+  <footer>
+    <div>Made by a Star Wars fan for fans everywhere. May the Force be with you!</div>
+    <div style="margin-top:.7rem;">Not affiliated with Lucasfilm or Disney. | <a href="https://www.starwars.com/" target="_blank">starwars.com</a></div>
+  </footer>
+
+  <!-- MOVIE & CHARACTER MODALS -->
+  <div class="modal-bg" id="modal-bg" onclick="if(event.target===this)hideModal()">
+    <div class="modal" id="modal">
+      <button class="modal-close" onclick="hideModal()">&times;</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+  <script>
+    // STARFIELD ANIMATION
+    const starCanvas = document.getElementById('starfield');
+    const ctx = starCanvas.getContext('2d');
+    let stars = [];
+    function resizeStarfield() {
+      starCanvas.width = window.innerWidth;
+      starCanvas.height = window.innerHeight;
+      stars = [];
+      for (let i = 0; i < 180; i++) {
+        stars.push({
+          x: Math.random() * starCanvas.width,
+          y: Math.random() * starCanvas.height,
+          z: Math.random() * starCanvas.width,
+          o: Math.random() * 0.7 + 0.3
+        });
+      }
+    }
+    function animateStarfield() {
+      ctx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+      for (let i = 0; i < stars.length; i++) {
+        let star = stars[i];
+        star.z -= 2;
+        if (star.z <= 0) star.z = starCanvas.width;
+        let k = 128.0 / star.z;
+        let sx = star.x * k + starCanvas.width / 2;
+        let sy = star.y * k + starCanvas.height / 2;
+        if (sx < 0 || sx >= starCanvas.width || sy < 0 || sy >= starCanvas.height) continue;
+        let size = (1 - star.z / starCanvas.width) * 2.3 + 0.5;
+        ctx.beginPath();
+        ctx.arc(sx, sy, size, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(255,255,240," + star.o + ")";
+        ctx.fill();
+      }
+      requestAnimationFrame(animateStarfield);
+    }
+    window.addEventListener('resize', resizeStarfield);
+    resizeStarfield(); animateStarfield();
+
+    // THEME TOGGLE
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+      const btn = document.getElementById('themeBtn');
+      if (document.body.classList.contains('light')) {
+        btn.textContent = 'Switch to Dark Side';
+      } else {
+        btn.textContent = 'Switch to Light Side';
+      }
+    }
+
+    // MUSIC
+    let musicPlaying = false;
+    function toggleMusic() {
+      const audio = document.getElementById("sw-theme");
+      const btn = document.querySelector(".music-btn");
+      if (!musicPlaying) {
+        audio.play();
+        btn.textContent = "Pause Star Wars Theme";
+      } else {
+        audio.pause();
+        btn.textContent = "Play Star Wars Theme";
+      }
+      musicPlaying = !musicPlaying;
+    }
+
+    // MODALS
+    const modals = {
+      movie1: {title:"A New Hope",desc:"The adventure begins! Luke Skywalker joins the Rebellion to defeat the Empire and save Princess Leia. The Death Star is destroyed.<br><strong>Fun Fact:</strong> The opening crawl was shot practically with six-foot-long yellow letters."},
+      movie2: {title:"The Empire Strikes Back",desc:"Darth Vader pursues the Rebels. Luke meets Yoda. The galaxy is changed forever. The iconic 'I am your father.' moment."},
+      movie3: {title:"Return of the Jedi",desc:"Luke redeems Vader, the Emperor falls, and Ewoks dance. The saga concludes... for now."},
+      movie4: {title:"The Phantom Menace",desc:"Qui-Gon Jinn and Obi-Wan Kenobi discover Anakin Skywalker as the Sith return. Podracing and Darth Maul's double-bladed saber!"},
+      movie5: {title:"Attack of the Clones",desc:"The Clone Wars begin. Anakin falls in love with Padmé. Dark forces plot in secret."},
+      movie6: {title:"Revenge of the Sith",desc:"Anakin becomes Darth Vader, the Jedi fall, and the Empire rises. Epic lightsaber duel on Mustafar."},
+      movie7: {title:"The Force Awakens",desc:"A new hero, Rey, rises as the First Order threatens the galaxy. Han Solo returns."},
+      movie8: {title:"The Last Jedi",desc:"The Resistance is on the run. Rey seeks Luke Skywalker. The Force is forever changed."},
+      movie9: {title:"The Rise of Skywalker",desc:"The final battle. Rey faces her destiny, Palpatine returns, and the saga ends."},
+      movie10:{title:"Rogue One",desc:"The daring mission to steal the Death Star plans. Sacrifice, hope, and rebellion."},
+      movie11:{title:"Solo",desc:"The origins of Han Solo, Chewbacca, and the Millennium Falcon."},
+      luke: {title:"Luke Skywalker",desc:"The farmboy-turned-Jedi who brought balance to the Force. <br><strong>Lightsaber:</strong> Green & Blue<br><strong>Home:</strong> Tatooine"},
+      vader:{title:"Darth Vader",desc:"Once Anakin Skywalker, he became the most feared Sith Lord. <br><strong>Lightsaber:</strong> Red<br><strong>Armor:</strong> Life-support suit"},
+      leia: {title:"Leia Organa",desc:"Rebel leader, diplomat, princess, and Jedi's twin sister.<br><strong>Home:</strong> Alderaan"},
+      han:  {title:"Han Solo",desc:"Smuggler, scoundrel, Rebel hero. Captain of the Millennium Falcon."},
+      chewie:{title:"Chewbacca",desc:"Wookiee co-pilot of the Millennium Falcon. Fiercely loyal."},
+      yoda: {title:"Yoda",desc:"Jedi Grand Master for centuries. Known for his wisdom and backwards speech."},
+      obiwan:{title:"Obi-Wan Kenobi",desc:"Mentor to Anakin and Luke. 'Hello there!'"},
+      palpatine:{title:"Emperor Palpatine",desc:"Sith Lord who manipulated the galaxy. 'Unlimited power!'"},
+      r2d2:{title:"R2-D2",desc:"Brave astromech droid. Saved the heroes countless times."},
+      c3po:{title:"C-3PO",desc:"Protocol droid fluent in over six million forms of communication."},
+      rey:{title:"Rey",desc:"Scavenger turned Jedi. Fights for hope and peace."},
+      kylo:{title:"Kylo Ren",desc:"Ben Solo, torn between the dark and light sides."},
+      mando:{title:"Din Djarin",desc:"The Mandalorian. Bounty hunter and protector of Grogu."},
+      grogu:{title:"Grogu",desc:"The Child. Strong in the Force. Loves frogs."}
+    };
+    function showModal(key) {
+      document.getElementById('modal-content').innerHTML = `<h2>${modals[key].title}</h2><div style="margin-top:1.2em;font-size:1.1em;">${modals[key].desc}</div>`;
+      document.getElementById('modal-bg').style.display = 'flex';
+    }
+    function hideModal() {
+      document.getElementById('modal-bg').style.display = 'none';
+    }
+
+    // TRIVIA & DID YOU KNOW
+    const triviaFacts = [
+      "Yoda was originally going to be played by a monkey carrying a cane and wearing a mask!",
+      "The word 'Wookiee' was invented by accident by a voice actor in George Lucas's first film.",
+      "Chewbacca’s voice is a mix of bear, walrus, lion, and badger sounds.",
+      "E.T. appears in the Galactic Senate scene in The Phantom Menace as a tribute to Steven Spielberg.",
+      "All the clone troopers in Episodes II and III are computer generated.",
+      "Darth Vader only has 12 minutes of screen time in A New Hope.",
+      "The sound of a lightsaber was created using the hum of an old film projector and interference from a TV.",
+      "The iconic opening crawl was shot practically using six-foot-long yellow letters.",
+      "R2-D2 once spoke English in the original draft of the script.",
+      "The Millennium Falcon’s design was influenced by a hamburger with an olive on the side.",
+      "The Ewok language is a mixture of Tibetan and Nepalese.",
+      "Jabba the Hutt was operated by three puppeteers.",
+      "The first Star Wars film was released on May 25, 1977.",
+      "The word 'Jedi' is derived from the Japanese word 'Jidaigeki', meaning period drama.",
+      "Qui-Gon's communicator is a repurposed women's razor.",
+      "Yoda has three toes in The Empire Strikes Back and Return of the Jedi, but four in The Phantom Menace.",
+      "Samuel L. Jackson's Mace Windu is the only Jedi with a purple lightsaber.",
+      "Han Solo was frozen in carbonite because Harrison Ford wasn't sure he'd return for Return of the Jedi.",
+      "Admiral Ackbar's famous line, 'It's a trap!', was improvised.",
+      "The phrase 'I've got a bad feeling about this' appears in every film."
+    ];
+    function showTrivia() {
+      const box = document.getElementById('trivia-box');
+      let prev = box.innerText;
+      let newFact;
+      do {
+        newFact = triviaFacts[Math.floor(Math.random()*triviaFacts.length)];
+      } while (newFact === prev);
+      box.innerText = newFact;
+    }
+    function showDidYouKnow() {
+      const box = document.getElementById('dyk-box');
+      box.innerHTML = "Did you know? <b>" + triviaFacts[Math.floor(Math.random()*triviaFacts.length)] + "</b>";
+    }
+    showDidYouKnow();
+    showTrivia();
+
+    // QUOTES
+    const quotes = [
+      { quote: "Do. Or do not. There is no try.", who: "Yoda" },
+      { quote: "I am your father.", who: "Darth Vader" },
+      { quote: "Help me, Obi-Wan Kenobi. You’re my only hope.", who: "Leia Organa" },
+      { quote: "I've got a bad feeling about this.", who: "Everyone, every movie!" },
+      { quote: "Chewie, we’re home.", who: "Han Solo" },
+      { quote: "It’s a trap!", who: "Admiral Ackbar" },
+      { quote: "May the Force be with you.", who: "Multiple Characters" },
+      { quote: "No one’s ever really gone.", who: "Luke Skywalker" },
+      { quote: "I find your lack of faith disturbing.", who: "Darth Vader" },
+      { quote: "The ability to speak does not make you intelligent.", who: "Qui-Gon Jinn" },
+      { quote: "This is the way.", who: "The Mandalorian" },
+      { quote: "The Force will be with you. Always.", who: "Obi-Wan Kenobi" },
+      { quote: "Never tell me the odds!", who: "Han Solo" },
+      { quote: "Power! Unlimited power!", who: "Emperor Palpatine" },
+      { quote: "I am one with the Force and the Force is with me.", who: "Chirrut Îmwe" },
+      { quote: "Fear is the path to the dark side.", who: "Yoda" },
+      { quote: "Your focus determines your reality.", who: "Qui-Gon Jinn" },
+      { quote: "So this is how liberty dies... with thunderous applause.", who: "Padmé Amidala" },
+      { quote: "Let the Wookiee win.", who: "C-3PO" }
+    ];
+    function showQuote() {
+      const box = document.getElementById('quote-box');
+      let idx, newQuote;
+      do {
+        idx = Math.floor(Math.random()*quotes.length);
+        newQuote = `"${quotes[idx].quote}"<span class="character">— ${quotes[idx].who}</span>`;
+      } while (box.innerHTML === newQuote);
+      box.innerHTML = newQuote;
+    }
+    showQuote();
+
+    // QUIZ
+    const quizQuestions = [
+      {
+        q: "What color is Mace Windu's lightsaber?",
+        options: ["Blue","Green","Purple","Red"],
+        a: 2
+      },
+      {
+        q: "Who is Luke Skywalker's mother?",
+        options: ["Padmé Amidala","Leia Organa","Rey","Mon Mothma"],
+        a: 0
+      },
+      {
+        q: "Which planet is home to Chewbacca?",
+        options: ["Endor","Kashyyyk","Dagobah","Tatooine"],
+        a: 1
+      },
+      {
+        q: "What is the name of Boba Fett's ship?",
+        options: ["Slave I","Razor Crest","Ghost","Outrider"],
+        a: 0
+      },
+      {
+        q: "Who said: 'I find your lack of faith disturbing'?",
+        options: ["Grand Moff Tarkin","Darth Vader","Emperor Palpatine","Obi-Wan Kenobi"],
+        a: 1
+      },
+      {
+        q: "Which film is the first chronologically?",
+        options: ["A New Hope","The Phantom Menace","Solo","The Force Awakens"],
+        a: 1
+      },
+      {
+        q: "What species is Yoda?",
+        options: ["Unknown","Human","Twi'lek","Wookiee"],
+        a: 0
+      }
+    ];
+    let quizIndex = Math.floor(Math.random()*quizQuestions.length);
+    function renderQuiz() {
+      const qq = quizQuestions[quizIndex];
+      document.getElementById('quiz-question').textContent = qq.q;
+      let opts = '';
+      qq.options.forEach((opt,i)=>{
+        opts += `<label><input type="radio" name="quiz" value="${i}" required> ${opt}</label>`;
+      });
+      document.getElementById('quiz-options').innerHTML = opts;
+      document.getElementById('quiz-result').textContent = "";
+    }
+    document.getElementById('quiz-form').onsubmit = function(e){
+      e.preventDefault();
+      const ans = document.querySelector('input[name="quiz"]:checked');
+      if (!ans) return;
+      const correct = quizQuestions[quizIndex].a;
+      if (parseInt(ans.value) === correct) {
+        document.getElementById('quiz-result').textContent = "Correct! 🌟";
+      } else {
+        document.getElementById('quiz-result').textContent = "Nope! The correct answer is: " + quizQuestions[quizIndex].options[correct];
+      }
+      setTimeout(()=>{
+        quizIndex = (quizIndex+1)%quizQuestions.length;
+        renderQuiz();
+      }, 2300);
+    };
+    renderQuiz();
+
+    // EASTER EGG: KONAMI CODE
+    let konami = [38,38,40,40,37,39,37,39,66,65], kPos=0;
+    window.addEventListener('keydown',function(e){
+      if(e.keyCode===konami[kPos]){ kPos++; }
+      else{ kPos=0; }
+      if(kPos===konami.length){
+        document.body.classList.toggle('light');
+        alert("The Force flows through you! Theme toggled.");
+        kPos=0;
+      }
+    });
+  </script>
+</body>
+</html>
